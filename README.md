@@ -1,3 +1,5 @@
+English | [简体中文](./README.zh-CN.md)
+
 # Local Llama API Launcher
 
 A lightweight Windows batch launcher for starting a local `llama-server` API with Intel oneAPI / SYCL builds of `llama.cpp`.
