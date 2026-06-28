@@ -2,87 +2,64 @@
 
 # Local Llama API Launcher
 
-一个轻量的 Windows 批处理启动器，用于通过 Intel oneAPI / SYCL 版 `llama.cpp` 启动本地 `llama-server` API。
+一个用于启动本地 `llama-server` API 的轻量 Windows 启动器，面向 Intel oneAPI / SYCL 版 `llama.cpp`。
 
-它面向这样的本地使用场景：
+它适合这样的桌面使用方式：
 
-- 从本地 `.gguf` 文件中选择模型
-- 选择要运行的 `llama-server` 构建版本
+- 选择本地 GGUF 模型
+- 选择要运行的服务构建版本
 - 选择上下文长度和端口
 - 自动加载 Visual Studio 和 oneAPI 环境
-- 在启动前显示最终命令
+- 启动本地 OpenAI 兼容 API
 
-## 功能
+## 特点
 
-主入口文件：
+- 单文件启动器：`start-llama-api.bat`
+- 菜单式选择模型和运行时
+- 支持本地 `build-f16` 与 `build` 服务二进制
+- 本地存在草稿模型时可选 speculative decoding
+- 启动前显示最终解析后的命令
 
-`start-llama-api.bat`
+## 快速开始
 
-脚本会自动检测：
-
-- `llama.cpp\\build-f16\\bin\\llama-server.exe`
-- `llama.cpp\\build\\bin\\llama-server.exe`
-- 项目根目录中的本地 `.gguf` 模型
-
-对于本地 SYCL 构建，它会自动加载：
-
-- Visual Studio Developer 环境
-- Intel oneAPI `setvars.bat`
-
-如果本地存在对应文件，也支持可选的 speculative decoding 草稿模型参数。
-
-## 项目结构
-
-```text
-start-llama-api.bat
-tests/start-llama-api-smoke.ps1
-docs/superpowers/specs/
-llama.cpp/
-```
-
-## 用法
-
-在当前目录打开终端，或直接双击：
+运行：
 
 ```bat
 start-llama-api.bat
 ```
 
-然后按菜单选择：
+然后依次选择：
 
-1. 可执行构建版本
+1. 服务构建版本
 2. 模型
 3. 上下文长度
 4. 端口
 5. 是否启用 speculative decoding
 
-脚本会在启动 `llama-server` 之前打印最终解析后的命令。
+## 运行前提
 
-## 默认运行前提
-
-这个项目默认面向一台已经准备好以下环境的 Windows 机器：
-
+- Windows
 - Visual Studio 2022 C++ 工具链
 - Intel oneAPI
-- 已编译完成的 SYCL 版 `llama.cpp`
-- 已放在本地的 GGUF 模型文件
+- 可用的 SYCL 版 `llama.cpp`
+- 本地 GGUF 模型文件
+
+## 仓库内容
+
+```text
+start-llama-api.bat
+tests/start-llama-api-smoke.ps1
+docs/superpowers/specs/
+docs/superpowers/plans/
+```
 
 ## 验证
-
-Smoke test：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\tests\start-llama-api-smoke.ps1
 ```
 
-测试会验证：
-
-- dry-run 命令解析
-- 交互式菜单流程
-- speculative decoding 命令构造
-- 环境初始化路径
-
 ## 说明
 
-- 大模型文件属于本地运行资源，不建议提交到 GitHub。
-- 启动器刻意保持为单文件批处理脚本，不额外拆分配置文件。
+- 大模型文件属于本地运行资源，不纳入版本控制。
+- 这个仓库聚焦于启动器本身，不包含 `llama.cpp` 源码或模型权重。
