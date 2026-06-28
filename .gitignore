@@ -1,0 +1,25 @@
+# Runtime assets
+*.gguf
+*.zip
+
+# Local build/runtime trees and vendored source
+blobs/
+manifests/
+llama.cpp/
+
+# Generated or local-only state
+*.log
+*.tmp
+*.bak
+
+# Python / PowerShell noise
+__pycache__/
+.pytest_cache/
+
+# VS Code / editor noise
+.vscode/
+.idea/
+
+# OS noise
+Thumbs.db
+Desktop.ini
